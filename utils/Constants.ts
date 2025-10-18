@@ -15,6 +15,6 @@ export const ROUTES = {
 export const USERS = {
   USER19: {
     username: "user19@goquant.io",
-    password: process.env.PASS_USER19,
+    password: process.env.PASS_USER19 || '',
   },
 };
