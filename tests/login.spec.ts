@@ -1,7 +1,7 @@
 import { test } from "@playwright/test";
 import { LoginPage } from "../pages/LoginPage";
 import { GoTradePage } from "../pages/GoTradePage";
-import { USERS } from "../utils/constants";
+import { USERS } from "../utils/Constants";
 import { OnboardingPopup } from "../pages/OnboardingPopup";
 import { Asserts } from "../utils/Asserts";
 

@@ -1,6 +1,6 @@
 import { BasePage } from "./BasePage";
 import { Page } from "@playwright/test";
-import { ROUTES } from "../utils/constants";
+import { ROUTES } from "../utils/Constants";
 import { Asserts } from "../utils/Asserts";
 
 export class LoginPage extends BasePage {

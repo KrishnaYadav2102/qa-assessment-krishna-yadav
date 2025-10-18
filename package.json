@@ -8,9 +8,11 @@
     "test": "tests"
   },
   "scripts": {
+    "typecheck": "npx tsc --noEmit",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
-    "prettier": "prettier --write \"**/*.{ts,json,md}\"",
+    "precommit": "npm run typecheck && npm run lint",
+    "format": "prettier --write \"**/*.{ts,json,md}\"",
     "check-format": "prettier --check \"**/*.{ts,json,md}\"",
     "test": "playwright test",
     "test:headed": "playwright test --headed",
