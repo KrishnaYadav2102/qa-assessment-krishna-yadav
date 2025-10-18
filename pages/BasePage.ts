@@ -1,12 +1,15 @@
-import { Page, expect, Locator } from '@playwright/test';
+import { Page, Locator } from "@playwright/test";
 
 /**
  * BasePage class provides common reusable methods for all page objects.
  * Handles navigation, element interactions, assertions, and loader waits.
  */
 export class BasePage {
+  protected readonly page: Page;
   // The Playwright Page object is shared across all methods
-  constructor(protected page: Page) {}
+  constructor(page: Page) {
+    this.page = page;
+  }
 
   /**
    * Navigate to a given URL and wait for the loader to disappear.
@@ -51,20 +54,20 @@ export class BasePage {
   async waitForLoader(
     loaderSelector: string = 'img[src="/img/spin.gif"]', // Default loader image selector
     appearTimeout = 2000, // Max wait for loader to appear
-    disappearTimeout = 10000 // Max wait for loader to disappear
+    disappearTimeout = 10000, // Max wait for loader to disappear
   ) {
     const loader = this.page.locator(loaderSelector);
 
     try {
       // Step 1: Wait for loader to appear (if it shows up within timeout)
-      await loader.waitFor({ state: 'visible', timeout: appearTimeout });
+      await loader.waitFor({ state: "visible", timeout: appearTimeout });
     } catch {
       // Loader never appeared → safe to continue execution
       return;
     }
 
     // Step 2: Wait for loader to disappear before interacting with the page
-    await loader.waitFor({ state: 'hidden', timeout: disappearTimeout });
+    await loader.waitFor({ state: "hidden", timeout: disappearTimeout });
   }
 
   /**
@@ -79,8 +82,10 @@ export class BasePage {
    *   await waitForLocator(page.locator('#loader'), 'hidden');   // Waits for loader to disappear
    */
   async waitForLocator(
-      locator: Locator, state: 'visible' | 'hidden' = 'visible',
-      timeout = 5000) {
+    locator: Locator,
+    state: "visible" | "hidden" = "visible",
+    timeout = 5000,
+  ) {
     console.log(`Wait for ${locator} to be visible or hidden`);
     await locator.waitFor({ state, timeout });
   }

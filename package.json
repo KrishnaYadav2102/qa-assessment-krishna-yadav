@@ -2,12 +2,21 @@
   "name": "qa-assessment-krishna-yadav",
   "version": "1.0.0",
   "description": "Playwright framework",
+  "type": "module",
   "main": "index.js",
   "directories": {
     "test": "tests"
   },
   "scripts": {
-
+    "lint": "eslint . --ext .ts",
+    "lint:fix": "eslint . --ext .ts --fix",
+    "prettier": "prettier --write \"**/*.{ts,json,md}\"",
+    "check-format": "prettier --check \"**/*.{ts,json,md}\"",
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:debug": "PWDEBUG=1 playwright test",
+    "test:ci": "npx playwright install --with-deps && playwright test --reporter=html",
+    "show-report": "npx playwright show-report"
   },
   "repository": {
     "type": "git",
@@ -22,6 +31,14 @@
   "homepage": "https://github.com/KrishnaYadav2102/qa-assessment-krishna-yadav#readme",
   "devDependencies": {
     "@playwright/test": "^1.56.1",
-    "@types/node": "^24.8.1"
+    "@types/node": "^24.8.1",
+    "@typescript-eslint/eslint-plugin": "^8.46.1",
+    "@typescript-eslint/parser": "^8.46.1",
+    "eslint": "^9.38.0",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "eslint-plugin-playwright": "^2.2.2"
   }
 }

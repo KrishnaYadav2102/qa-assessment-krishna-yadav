@@ -1,18 +1,20 @@
-import { test } from '@playwright/test';
-import { LoginPage } from '../pages/LoginPage';
-import { GoTradePage } from '../pages/GoTradePage';
-import { USERS } from '../utils/constants';
-import {OnboardingPopup} from "../pages/OnboardingPopup";
-import {Asserts} from "../utils/Asserts";
+import { test } from "@playwright/test";
+import { LoginPage } from "../pages/LoginPage";
+import { GoTradePage } from "../pages/GoTradePage";
+import { USERS } from "../utils/constants";
+import { OnboardingPopup } from "../pages/OnboardingPopup";
+import { Asserts } from "../utils/Asserts";
 
 /**
  * Test suite for login functionality
  */
-test.describe('Login Tests', () => {
+test.describe("Login Tests", () => {
   /**
    * Test: Login with valid credentials for an existing user
    */
-  test('User login for existing user with valid credentials', async ({ page }) => {
+  test("User login for existing user with valid credentials", async ({
+    page,
+  }) => {
     const loginPage = new LoginPage(page);
     const goTradePage = new GoTradePage(page, USERS.USER19.username);
     const onboardingPopup = new OnboardingPopup(page);
@@ -25,8 +27,8 @@ test.describe('Login Tests', () => {
 
     // Check and dismiss the popup if it appears
     if (await onboardingPopup.isPopupVisible()) {
-        await onboardingPopup.validatePopupContent();
-        await onboardingPopup.clickGetStarted();
+      await onboardingPopup.validatePopupContent();
+      await onboardingPopup.clickGetStarted();
     }
 
     await goTradePage.validateGoTradePage(USERS.USER19.username);
@@ -35,88 +37,94 @@ test.describe('Login Tests', () => {
   /**
    * Test: Login with incorrect password for existing user
    */
-  test('User login for existing user with incorrect password', async ({ page }) => {
+  test("User login for existing user with incorrect password", async ({
+    page,
+  }) => {
     const loginPage = new LoginPage(page);
 
     // Navigate to login page
     await loginPage.goto();
 
     // Attempt login with valid username but wrong password
-    await loginPage.login(USERS.USER19.username, 'wrong_password');
+    await loginPage.login(USERS.USER19.username, "wrong_password");
 
     // Assert that error message is visible
     // Using LoginPage wrapper method assertVisible
-    await Asserts.assertVisible(page.getByText('The password is invalid'));
+    await Asserts.assertVisible(page.getByText("The password is invalid"));
   });
 
   /**
    * Test: Login with non-existing user
    */
-  test('User login for non-existing user', async ({ page }) => {
+  test("User login for non-existing user", async ({ page }) => {
     const loginPage = new LoginPage(page);
 
     // Navigate to login page
     await loginPage.goto();
 
     // Attempt login with a username that doesn't exist
-    await loginPage.login('non-existing-user@goquant.io', 'wrong_password');
+    await loginPage.login("non-existing-user@goquant.io", "wrong_password");
 
     // Assert that error message is visible
-    await Asserts.assertVisible(page.getByText('The user was not found in the system'));
+    await Asserts.assertVisible(
+      page.getByText("The user was not found in the system"),
+    );
   });
 
   /**
    * Test: Invalid Email format
    */
-  test('User login with Invalid Email format', async ({ page }) => {
+  test("User login with Invalid Email format", async ({ page }) => {
     const loginPage = new LoginPage(page);
 
     // Navigate to login page
     await loginPage.goto();
 
     // Attempt login with a username that doesn't exist
-    await loginPage.login('invalid-email-format', 'wrong_password');
+    await loginPage.login("invalid-email-format", "wrong_password");
 
     // Assert that error message is visible
-    await Asserts.assertVisible(page.getByText('Please provide a valid email'));
+    await Asserts.assertVisible(page.getByText("Please provide a valid email"));
   });
 
   /**
    * Test: Blank email
    */
-  test('User login with blank Email', async ({ page }) => {
+  test("User login with blank Email", async ({ page }) => {
     const loginPage = new LoginPage(page);
 
     // Navigate to login page
     await loginPage.goto();
 
     // Attempt login with a username that doesn't exist
-    await loginPage.login('', 'wrong_password');
+    await loginPage.login("", "wrong_password");
 
     // Assert that error message is visible
-    await Asserts.assertVisible(page.getByText('Username must be at least 5 characters.'));
+    await Asserts.assertVisible(
+      page.getByText("Username must be at least 5 characters."),
+    );
   });
 
   /**
    * Test: Blank password
    */
-  test('User login with blank password', async ({ page }) => {
+  test("User login with blank password", async ({ page }) => {
     const loginPage = new LoginPage(page);
 
     // Navigate to login page
     await loginPage.goto();
 
     // Attempt login with a username that doesn't exist
-    await loginPage.login(USERS.USER19.username, '');
+    await loginPage.login(USERS.USER19.username, "");
 
     // Assert that error message is visible
-    await Asserts.assertVisible(page.getByText('The password is invalid'));
+    await Asserts.assertVisible(page.getByText("The password is invalid"));
   });
 
   /**
    * Test: Logout functionality for a logged-in user
    */
-  test('User logout', async ({ page }) => {
+  test("User logout", async ({ page }) => {
     const loginPage = new LoginPage(page);
     const goTradePage = new GoTradePage(page, USERS.USER19.username);
     const onboardingPopup = new OnboardingPopup(page);
@@ -127,8 +135,8 @@ test.describe('Login Tests', () => {
 
     // Check and dismiss the popup if it appears
     if (await onboardingPopup.isPopupVisible()) {
-        await onboardingPopup.validatePopupContent();
-        await onboardingPopup.clickGetStarted();
+      await onboardingPopup.validatePopupContent();
+      await onboardingPopup.clickGetStarted();
     }
 
     // Click logout link

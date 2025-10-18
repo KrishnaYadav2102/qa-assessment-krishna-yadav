@@ -1,7 +1,7 @@
-import {BasePage} from "./BasePage";
-import {Page} from "@playwright/test";
-import {ROUTES} from "../utils/constants";
-import {Asserts} from "../utils/Asserts";
+import { BasePage } from "./BasePage";
+import { Page } from "@playwright/test";
+import { ROUTES } from "../utils/constants";
+import { Asserts } from "../utils/Asserts";
 
 export class LoginPage extends BasePage {
   // Locator for username/email input field
@@ -11,7 +11,7 @@ export class LoginPage extends BasePage {
   passwordInput = this.page.locator('input[name="password"]');
 
   // Locator for login button
-  loginButton = this.page.getByRole('button', { name: 'Sign In' });
+  loginButton = this.page.getByRole("button", { name: "Sign In" });
 
   /**
    * Constructor initializes the LoginPage object

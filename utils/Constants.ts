@@ -3,9 +3,9 @@
  * Used with page.goto() or navigation helpers
  */
 export const ROUTES = {
-  LOGIN: '/auth/login', // Login page
-  GOTRADE: '/gotrade', // GoTrade page
-  PROFILE: '/profile', // User profile page
+  LOGIN: "/auth/login", // Login page
+  GOTRADE: "/gotrade", // GoTrade page
+  PROFILE: "/profile", // User profile page
 };
 
 /**
@@ -14,8 +14,8 @@ export const ROUTES = {
  */
 export const USERS = {
   USER19: {
-    username: 'user19@goquant.io',
+    username: "user19@goquant.io",
     // Password: Uses environment variable if set, otherwise default
-    password: process.env.PASS_USER19 || '60Re3G9KvvFl4Ihegxpi',
+    password: process.env.PASS_USER19 || "60Re3G9KvvFl4Ihegxpi",
   },
 };
