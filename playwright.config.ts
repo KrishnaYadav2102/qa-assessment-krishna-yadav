@@ -4,9 +4,9 @@ import { defineConfig, devices } from "@playwright/test";
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
+import dotenv from 'dotenv';
+import path from 'path';
+dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -32,7 +32,7 @@ export default defineConfig({
     // baseURL: 'http://localhost:3000',
 
     baseURL: "https://test1.gotrade.goquant.io/",
-    headless: false,
+    headless: true,
     viewport: { width: 1920, height: 1080 },
     actionTimeout: 0,
     screenshot: "only-on-failure",

@@ -15,7 +15,6 @@ export const ROUTES = {
 export const USERS = {
   USER19: {
     username: "user19@goquant.io",
-    // Password: Uses environment variable if set, otherwise default
-    password: process.env.PASS_USER19 || "60Re3G9KvvFl4Ihegxpi",
+    password: process.env.PASS_USER19,
   },
 };
