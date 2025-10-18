@@ -1,0 +1,27 @@
+{
+  "name": "qa-assessment-krishna-yadav",
+  "version": "1.0.0",
+  "description": "Playwright framework",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KrishnaYadav2102/qa-assessment-krishna-yadav.git"
+  },
+  "keywords": [],
+  "author": "krishna.yadav2102@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KrishnaYadav2102/qa-assessment-krishna-yadav/issues"
+  },
+  "homepage": "https://github.com/KrishnaYadav2102/qa-assessment-krishna-yadav#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.56.1",
+    "@types/node": "^24.8.1"
+  }
+}
