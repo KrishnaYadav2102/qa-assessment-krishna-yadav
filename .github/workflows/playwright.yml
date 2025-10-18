@@ -17,6 +17,8 @@ jobs:
       run: npm i
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
+    - name: Run pre-commit
+      run: npm run precommit
     - name: Run Playwright tests
       env:
         PASS_USER19: ${{ secrets.PASS_USER19 }}
