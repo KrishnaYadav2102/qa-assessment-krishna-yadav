@@ -9,6 +9,9 @@ import { Asserts } from "../utils/Asserts";
  * Test suite for login functionality
  */
 test.describe("Login Tests", () => {
+  // Reset storage state for this file to avoid being authenticated
+  test.use({ storageState: { cookies: [], origins: [] } });
+
   /**
    * Test: Login with valid credentials for an existing user
    */

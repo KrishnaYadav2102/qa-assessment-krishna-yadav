@@ -5,10 +5,10 @@ import { Asserts } from "../utils/Asserts";
 
 export class LoginPage extends BasePage {
   // Locator for username/email input field
-  usernameInput = this.page.locator('input[name="email"]');
+  usernameInput = this.page.getByRole('textbox', { name: 'Email'});
 
   // Locator for password input field
-  passwordInput = this.page.locator('input[name="password"]');
+  passwordInput = this.page.getByRole('textbox', { name: 'Enter your password'});
 
   // Locator for login button
   loginButton = this.page.getByRole("button", { name: "Sign In" });

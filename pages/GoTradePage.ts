@@ -23,7 +23,7 @@ export class GoTradePage extends BasePage {
 
   async getEmail() {
     const headerContainer = this.page.locator("header");
-    return headerContainer.getByRole("button", { name: this.email });
+    return headerContainer.getByRole("button", { name: this.email, exact: true });
   }
 
   async validateGoTradePage(email: string) {

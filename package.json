@@ -8,6 +8,7 @@
     "test": "tests"
   },
   "scripts": {
+    "codegen": "npx playwright codegen",
     "typecheck": "npx tsc --noEmit",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
