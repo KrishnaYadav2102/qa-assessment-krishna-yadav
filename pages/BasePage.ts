@@ -20,7 +20,7 @@ export class BasePage {
     await this.page.goto(url);
 
     // Wait for any page loader/spinner to disappear
-    await this.waitForLoader();
+    // await this.waitForLoader();
   }
 
   /**
@@ -28,7 +28,7 @@ export class BasePage {
    * @param locator The Playwright Locator to click
    */
   async click(locator: Locator) {
-    await this.waitForLocator(locator);
+    // await this.waitForLocator(locator);
     console.log(`Clicking on ${locator}`);
     await locator.click();
   }
@@ -39,7 +39,7 @@ export class BasePage {
    * @param text The text to enter
    */
   async fill(locator: Locator, text: string) {
-    await this.waitForLocator(locator);
+    // await this.waitForLocator(locator);
     console.log(`Enter ${text} into ${locator}`);
     await locator.fill(text);
   }
