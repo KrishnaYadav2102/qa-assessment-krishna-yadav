@@ -32,7 +32,7 @@ export default defineConfig({
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
 
-    baseURL: "https://test1.gotrade.goquant.io/",
+    baseURL: process.env.BASEURL || "https://test1.gotrade.goquant.io/",
     headless: true,
     viewport: { width: 1920, height: 1080 },
     actionTimeout: 0,

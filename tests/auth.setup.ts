@@ -1,9 +1,12 @@
 import { test as setup } from "@playwright/test";
 import path from "path";
-import { USERS } from "../utils/Constants";
-import { LoginPage } from "../pages/LoginPage";
-import {OnboardingPopup} from "../pages/OnboardingPopup";
+import { USERS } from "../utils/Constants.ts";
+import { LoginPage } from "../pages/LoginPage.ts";
+import {OnboardingPopup} from "../pages/OnboardingPopup.ts";
+import {fileURLToPath} from "node:url";
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const authFile = path.join(__dirname, "../playwright/.auth/user.json");
 
 /**

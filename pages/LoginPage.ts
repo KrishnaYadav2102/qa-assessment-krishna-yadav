@@ -1,7 +1,7 @@
-import { BasePage } from "./BasePage";
+import { BasePage } from "./BasePage.ts";
 import { Page } from "@playwright/test";
-import { ROUTES } from "../utils/Constants";
-import { Asserts } from "../utils/Asserts";
+import { ROUTES } from "../utils/Constants.ts";
+import { Asserts } from "../utils/Asserts.ts";
 
 export class LoginPage extends BasePage {
   // Locator for username/email input field
@@ -35,7 +35,7 @@ export class LoginPage extends BasePage {
    */
   async login(username: string, password: string) {
     await this.fill(this.usernameInput, username); // Fill username
-    await this.fill(this.passwordInput, password); // Fill password
+    await this.fill(this.passwordInput, password, true); // Fill password
     await this.click(this.loginButton); // Click login button
   }
 

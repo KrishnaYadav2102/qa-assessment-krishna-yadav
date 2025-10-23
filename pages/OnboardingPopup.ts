@@ -1,7 +1,7 @@
 // pages/OnboardingPopup.ts
 import { Page, Locator } from "@playwright/test";
-import { BasePage } from "./BasePage"; // Assuming you use BasePage
-import { Asserts } from "../utils/Asserts"; // To use your custom assertions
+import { BasePage } from "./BasePage.ts";
+import { Asserts } from "../utils/Asserts.ts";
 
 export class OnboardingPopup extends BasePage {
   // Locators specific to the popup

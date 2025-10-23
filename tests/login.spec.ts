@@ -1,9 +1,9 @@
 import { test } from "@playwright/test";
-import { LoginPage } from "../pages/LoginPage";
-import { GoTradePage } from "../pages/GoTradePage";
-import { USERS } from "../utils/Constants";
-import { OnboardingPopup } from "../pages/OnboardingPopup";
-import { Asserts } from "../utils/Asserts";
+import { LoginPage } from "../pages/LoginPage.ts";
+import { GoTradePage } from "../pages/GoTradePage.ts";
+import { USERS } from "../utils/Constants.ts";
+import { OnboardingPopup } from "../pages/OnboardingPopup.ts";
+import { Asserts } from "../utils/Asserts.ts";
 
 /**
  * Test suite for login functionality

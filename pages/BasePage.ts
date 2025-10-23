@@ -18,9 +18,6 @@ export class BasePage {
   async goto(url: string) {
     console.log(`Navigating to ${url}`);
     await this.page.goto(url);
-
-    // Wait for any page loader/spinner to disappear
-    // await this.waitForLoader();
   }
 
   /**
@@ -28,7 +25,6 @@ export class BasePage {
    * @param locator The Playwright Locator to click
    */
   async click(locator: Locator) {
-    // await this.waitForLocator(locator);
     console.log(`Clicking on ${locator}`);
     await locator.click();
   }
@@ -38,9 +34,28 @@ export class BasePage {
    * @param locator The Playwright Locator of the input field
    * @param text The text to enter
    */
-  async fill(locator: Locator, text: string) {
-    // await this.waitForLocator(locator);
-    console.log(`Enter ${text} into ${locator}`);
+  async fill(locator: Locator, text: string, is_password: boolean = false) {
+    const EXPOSE_COUNT = 3;
+    let logText: string;
+
+    if (is_password && text.length > EXPOSE_COUNT) {
+      // 1. Get the first three characters ("abc")
+      const prefix = text.substring(0, EXPOSE_COUNT);
+
+      // 2. Calculate the number of characters to mask
+      const maskLength = text.length - EXPOSE_COUNT;
+
+      // 3. Create the mask string (e.g., "**********")
+      const mask = '*'.repeat(maskLength);
+
+      // 4. Combine them
+      logText = prefix + mask;
+    } else {
+      // If not a password, or if the text is too short, print the text as is (or use '******')
+      logText = is_password ? '******' : text;
+    }
+
+    console.log(`Enter ${logText} into ${locator}`);
     await locator.fill(text);
   }
 

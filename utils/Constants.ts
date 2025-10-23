@@ -5,7 +5,7 @@
 export const ROUTES = {
   LOGIN: "/auth/login", // Login page
   GOTRADE: "/gotrade", // GoTrade page
-  PROFILE: "/profile", // User profile page
+  ADMIN: "/admin", // Admin page
 };
 
 /**

@@ -1,9 +1,10 @@
-import { BasePage } from "./BasePage";
+import { BasePage } from "./BasePage.ts";
 import { Page } from "@playwright/test";
-import { Asserts } from "../utils/Asserts";
+import { Asserts } from "../utils/Asserts.ts";
+import {ROUTES} from "../utils/Constants.js";
 
 export class GoTradePage extends BasePage {
-  private email: string;
+  private readonly email: string;
   link_go_terminal = this.page.getByRole("link", { name: "GoTerminal" });
 
   btn_markets = this.page.getByRole("button", { name: "Markets" });
@@ -19,6 +20,10 @@ export class GoTradePage extends BasePage {
   constructor(page: Page, email: string) {
     super(page); // Call BasePage constructor
     this.email = email;
+  }
+
+  async goto() {
+    await super.goto(ROUTES.GOTRADE);
   }
 
   async getEmail() {
