@@ -1,7 +1,7 @@
 import { BasePage } from "./BasePage.ts";
 import { Page } from "@playwright/test";
 import { Asserts } from "../utils/Asserts.ts";
-import {ROUTES} from "../utils/Constants.js";
+import {ROUTES} from "../utils/constants.ts";
 
 export class GoTradePage extends BasePage {
   private readonly email: string;

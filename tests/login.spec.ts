@@ -1,7 +1,7 @@
 import { test } from "@playwright/test";
 import { LoginPage } from "../pages/LoginPage.ts";
 import { GoTradePage } from "../pages/GoTradePage.ts";
-import { USERS } from "../utils/Constants.ts";
+import { USERS } from "../utils/constants.ts";
 import { OnboardingPopup } from "../pages/OnboardingPopup.ts";
 import { Asserts } from "../utils/Asserts.ts";
 

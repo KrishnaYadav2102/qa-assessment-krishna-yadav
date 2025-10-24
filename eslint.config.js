@@ -6,7 +6,7 @@ import playwright from 'eslint-plugin-playwright';
 export default [
     {
         // Global configuration for all files
-        ignores: ['node_modules', 'playwright-report', 'test-results', 'eslint.config.js'],
+        ignores: ['node_modules', 'dist', 'playwright-report', 'test-results', 'eslint.config.js'],
     },
     {
         files: ['**/*.ts', '**/*.js'],

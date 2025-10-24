@@ -1,6 +1,6 @@
 import { test } from "@playwright/test";
-import { GoTradePage } from "../../pages/GoTradePage.js";
-import { USERS } from "../../utils/Constants.ts";
+import { GoTradePage } from "../../pages/GoTradePage.ts";
+import { USERS } from "../../utils/constants.ts";
 // import { Asserts } from "../utils/Asserts";
 
 /**

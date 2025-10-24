@@ -1,6 +1,6 @@
 import { test as setup } from "@playwright/test";
 import path from "path";
-import { USERS } from "../utils/Constants.ts";
+import { USERS } from "../utils/constants.ts";
 import { LoginPage } from "../pages/LoginPage.ts";
 import {OnboardingPopup} from "../pages/OnboardingPopup.ts";
 import {fileURLToPath} from "node:url";
