@@ -10,6 +10,8 @@ export class AdminPage extends BasePage {
   inpt_apiSecret = this.page.getByTestId('input-api-secret');
   inpt_passPhrase = this.page.getByTestId('passphrase-input');
   swtch_testMode = this.page.getByTestId('test-mode-switch');
+  btn_submitAccount = this.page.getByTestId('button-submit-account');
+  dlg_addAccount = this.page.getByTestId('add-account-dialog');
 
   /**
    * Constructor initializes the AdminPage object
@@ -33,18 +35,19 @@ export class AdminPage extends BasePage {
   // }
 
   async addAccount(
+    exchangeName: string,
     accountName: string,
     apiKey: string,
     apiSecret: string,
     passPhrase: string,
   ) {
-    Logger.step(`Add Account: ${accountName}`);
+    Logger.step(`Add Account: ${accountName} for Exchange: ${exchangeName}`);
     await this.click(this.btn_addAccount);
     await this.fill(this.inpt_accountName, accountName);
     await this.fill(this.inpt_apiKey, apiKey);
     await this.fill(this.inpt_apiSecret, apiSecret, true);
     await this.fill(this.inpt_passPhrase, passPhrase, true);
     await this.click(this.swtch_testMode);
-    await this.click(this.btn_addAccount);
+    await this.click(this.btn_submitAccount);
   }
 }
