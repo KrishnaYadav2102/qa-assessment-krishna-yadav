@@ -1,16 +1,14 @@
 // pages/OnboardingPopup.ts
-import { Page, Locator } from "@playwright/test";
-import { BasePage } from "./BasePage.ts";
-import { Asserts } from "../utils/Asserts.ts";
+import { Page, Locator } from '@playwright/test';
+import { BasePage } from '../BasePage.js';
+import { Asserts } from '../../utils/Asserts.js';
+import { Logger } from '../../utils/Logger.js';
 
 export class OnboardingPopup extends BasePage {
-  // Locators specific to the popup
-  readonly popupContainer = this.page.locator(
-    '[data-testid="onboarding-card"]',
-  );
-  readonly welcomeHeader = this.popupContainer.getByText("Welcome to GoTrade!");
+  readonly popupContainer = this.page.getByTestId('onboarding-card');
+  readonly welcomeHeader = this.popupContainer.getByText('Welcome to GoTrade!');
   readonly getStartedButton: Locator =
-    this.popupContainer.getByText("Get Started");
+    this.popupContainer.getByText('Get Started');
 
   constructor(page: Page) {
     super(page);
@@ -22,12 +20,13 @@ export class OnboardingPopup extends BasePage {
   async isPopupVisible(): Promise<boolean> {
     // Use your BasePage method to wait for the container to attach/appear.
     // We use attached/visible to handle cases where it might flicker.
+    Logger.info('Checking if Onboarding pop-up is visible!');
     try {
-      await this.waitForLocator(this.popupContainer, "visible", 10000);
-      console.log("PopUp visible!");
+      await this.waitForLocator(this.popupContainer, 'visible', 10000);
+      Logger.info('PopUp visible!');
       return true;
     } catch (error) {
-      console.log(`PopUp not visible!: \n${error}`);
+      Logger.info(`PopUp not visible!: \n${error}`);
       return false;
     }
   }
@@ -36,12 +35,12 @@ export class OnboardingPopup extends BasePage {
    * Confirms the popup is visible and validates its key elements.
    */
   async validatePopupContent() {
-    console.log("Validating Onboarding Popup content...");
+    Logger.step('Validate Onboarding Popup content');
     await Asserts.assertTextContains(
       this.popupContainer,
-      "Welcome to GoTrade!",
+      'Welcome to GoTrade!',
     );
-    await Asserts.assertText(this.getStartedButton, "Get Started");
+    await Asserts.assertText(this.getStartedButton, 'Get Started');
   }
 
   /**
@@ -52,7 +51,7 @@ export class OnboardingPopup extends BasePage {
     await this.getStartedButton.click();
 
     // Optional: Wait for the popup to disappear
-    await this.waitForLocator(this.popupContainer, "hidden", 5000);
-    console.log('Clicked "Get Started" and popup closed.');
+    await this.waitForLocator(this.popupContainer, 'hidden', 5000);
+    Logger.info('Clicked "Get Started" and popup closed.');
   }
 }

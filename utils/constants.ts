@@ -3,9 +3,9 @@
  * Used with page.goto() or navigation helpers
  */
 export const ROUTES = {
-  LOGIN: "/auth/login", // Login page
-  GOTRADE: "/gotrade", // GoTrade page
-  ADMIN: "/admin", // Admin page
+  LOGIN: '/auth/login', // Login page
+  GO_TRADE: '/gotrade', // GoTrade page
+  ADMIN: '/admin', // Admin page
 };
 
 /**
@@ -14,7 +14,7 @@ export const ROUTES = {
  */
 export const USERS = {
   USER19: {
-    username: "user19@goquant.io",
+    username: 'user19@goquant.io',
     password: process.env.PASS_USER19 || '',
   },
 };

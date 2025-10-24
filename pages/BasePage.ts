@@ -1,4 +1,5 @@
-import { Page, Locator } from "@playwright/test";
+import { Page, Locator } from '@playwright/test';
+import { Logger } from '../utils/Logger.js';
 
 /**
  * BasePage class provides common reusable methods for all page objects.
@@ -16,8 +17,13 @@ export class BasePage {
    * @param url The URL to navigate to
    */
   async goto(url: string) {
-    console.log(`Navigating to ${url}`);
+    Logger.info(`Navigating to ${url}`);
     await this.page.goto(url);
+  }
+
+  async getElementByText(text: string) {
+    Logger.info(`Returning element by text: ${text}`);
+    return this.page.getByText(text);
   }
 
   /**
@@ -25,7 +31,7 @@ export class BasePage {
    * @param locator The Playwright Locator to click
    */
   async click(locator: Locator) {
-    console.log(`Clicking on ${locator}`);
+    Logger.info(`Clicking on ${locator}`);
     await locator.click();
   }
 
@@ -55,7 +61,7 @@ export class BasePage {
       logText = is_password ? '******' : text;
     }
 
-    console.log(`Enter ${logText} into ${locator}`);
+    Logger.info(`Enter ${logText} into ${locator}`);
     await locator.fill(text);
   }
 
@@ -75,14 +81,14 @@ export class BasePage {
 
     try {
       // Step 1: Wait for loader to appear (if it shows up within timeout)
-      await loader.waitFor({ state: "visible", timeout: appearTimeout });
+      await loader.waitFor({ state: 'visible', timeout: appearTimeout });
     } catch {
       // Loader never appeared → safe to continue execution
       return;
     }
 
     // Step 2: Wait for loader to disappear before interacting with the page
-    await loader.waitFor({ state: "hidden", timeout: disappearTimeout });
+    await loader.waitFor({ state: 'hidden', timeout: disappearTimeout });
   }
 
   /**
@@ -98,10 +104,10 @@ export class BasePage {
    */
   async waitForLocator(
     locator: Locator,
-    state: "visible" | "hidden" = "visible",
+    state: 'visible' | 'hidden' = 'visible',
     timeout = 5000,
   ) {
-    console.log(`Wait for ${locator} to be visible or hidden`);
+    Logger.info(`Wait for ${locator} to be visible or hidden`);
     await locator.waitFor({ state, timeout });
   }
 }

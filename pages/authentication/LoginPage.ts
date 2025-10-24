@@ -1,17 +1,20 @@
-import { BasePage } from "./BasePage.ts";
-import { Page } from "@playwright/test";
-import { ROUTES } from "../utils/constants.ts";
-import { Asserts } from "../utils/Asserts.ts";
+import { BasePage } from '../BasePage.js';
+import { Page } from '@playwright/test';
+import { ROUTES } from '../../utils/constants.js';
+import { Asserts } from '../../utils/Asserts.js';
+import { Logger } from '../../utils/Logger.js';
 
 export class LoginPage extends BasePage {
   // Locator for username/email input field
-  usernameInput = this.page.getByRole('textbox', { name: 'Email'});
+  usernameInput = this.page.getByRole('textbox', { name: 'Email' });
 
   // Locator for password input field
-  passwordInput = this.page.getByRole('textbox', { name: 'Enter your password'});
+  passwordInput = this.page.getByRole('textbox', {
+    name: 'Enter your password',
+  });
 
   // Locator for login button
-  loginButton = this.page.getByRole("button", { name: "Sign In" });
+  loginButton = this.page.getByRole('button', { name: 'Sign In' });
 
   /**
    * Constructor initializes the LoginPage object
@@ -34,6 +37,7 @@ export class LoginPage extends BasePage {
    * @param password User's password
    */
   async login(username: string, password: string) {
+    Logger.step(`Login username: ${username}`);
     await this.fill(this.usernameInput, username); // Fill username
     await this.fill(this.passwordInput, password, true); // Fill password
     await this.click(this.loginButton); // Click login button
@@ -43,6 +47,7 @@ export class LoginPage extends BasePage {
    * Validates that the user is logged out by checking visibility of login form elements
    */
   async validateUserLoggedOut() {
+    Logger.step('Validate User is logged out');
     await Asserts.assertVisible(this.usernameInput); // Username input should be visible
     await Asserts.assertVisible(this.passwordInput); // Password input should be visible
     await Asserts.assertVisible(this.loginButton); // Login button should be visible

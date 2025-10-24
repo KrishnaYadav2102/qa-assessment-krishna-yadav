@@ -1,19 +1,21 @@
-import { test as setup } from "@playwright/test";
-import path from "path";
-import { USERS } from "../utils/constants.ts";
-import { LoginPage } from "../pages/LoginPage.ts";
-import {OnboardingPopup} from "../pages/OnboardingPopup.ts";
-import {fileURLToPath} from "node:url";
+import { test as setup } from '@playwright/test';
+import path from 'path';
+import { USERS } from '../utils/constants.js';
+import { fileURLToPath } from 'node:url';
+import { LoginPage } from '../pages/authentication/LoginPage.js';
+import { OnboardingPopup } from '../pages/authentication/OnboardingPopup.js';
+import { Logger } from '../utils/Logger.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const authFile = path.join(__dirname, "../playwright/.auth/user.json");
+const authFile = path.join(__dirname, '../playwright/.auth/user.json');
 
 /**
  * Setup test to authenticate a user and save authentication state.
  * This allows reusing the login state across multiple tests without logging in every time.
  */
-setup("authenticate", async ({ page }) => {
+setup('authenticate', async ({ page }) => {
+  Logger.step('Authenticate & save it in auth.json file');
   // Initialize the LoginPage object
   const loginPage = new LoginPage(page);
   const onboardingPopup = new OnboardingPopup(page);
@@ -32,5 +34,5 @@ setup("authenticate", async ({ page }) => {
   // Save authenticated browser state to a JSON file
   // This can be loaded in other tests to bypass login
   await page.context().storageState({ path: authFile });
-  console.log(`Authentication state saved to: ${authFile}`);
+  Logger.info(`Authentication state saved to: ${authFile}`);
 });

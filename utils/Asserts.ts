@@ -1,4 +1,5 @@
-import { expect, Locator } from "@playwright/test";
+import { expect, Locator } from '@playwright/test';
+import { Logger } from './Logger.js';
 
 export class Asserts {
   /**
@@ -6,7 +7,7 @@ export class Asserts {
    * @param locator The Playwright Locator to check visibility
    */
   static async assertText(locator: Locator, expectedText: string) {
-    console.log(
+    Logger.info(
       `Checking if element "${locator}" have text: "${expectedText}"`,
     );
     await expect(locator).toHaveText(expectedText);
@@ -17,7 +18,7 @@ export class Asserts {
    * @param locator The Playwright Locator to check visibility
    */
   static async assertVisible(locator: Locator) {
-    console.log(`Checking for visibility of ${locator}`);
+    Logger.info(`Checking for visibility of ${locator}`);
     await expect(locator).toBeVisible();
   }
 
@@ -27,7 +28,7 @@ export class Asserts {
    * @param expectedText The text that should be contained
    */
   static async assertTextContains(locator: Locator, expectedText: string) {
-    console.log(
+    Logger.info(
       `Checking if element "${locator}" contains text: "${expectedText}"`,
     );
     await expect(locator).toContainText(expectedText);
@@ -39,7 +40,7 @@ export class Asserts {
    * @param expectedValue The value expected in the input
    */
   static async assertInputValue(locator: Locator, expectedValue: string) {
-    console.log(
+    Logger.info(
       `Checking if input element "${locator}" contains value: "${expectedValue}"`,
     );
     await expect(locator).toHaveValue(expectedValue);

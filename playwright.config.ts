@@ -1,4 +1,4 @@
-import { defineConfig, devices } from "@playwright/test";
+import { defineConfig, devices } from '@playwright/test';
 
 /**
  * Read environment variables from file.
@@ -13,7 +13,7 @@ dotenv.config();
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: "./tests",
+  testDir: './tests',
   timeout: 30000,
   expect: { timeout: 5000 },
 
@@ -32,15 +32,15 @@ export default defineConfig({
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
 
-    baseURL: process.env.BASEURL || "https://test1.gotrade.goquant.io/",
+    baseURL: process.env.BASEURL || 'https://test1.gotrade.goquant.io/',
     headless: true,
     viewport: { width: 1920, height: 1080 },
     actionTimeout: 0,
-    screenshot: "only-on-failure",
-    video: "retain-on-failure",
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
-    trace: "on-first-retry",
+    trace: 'on-first-retry',
   },
 
   /* Configure projects for major browsers */
@@ -48,9 +48,9 @@ export default defineConfig({
     // Setup project
     { name: 'setup', testMatch: /.*\.setup\.ts/ },
     {
-      name: "chromium",
+      name: 'chromium',
       use: {
-        ...devices["Desktop Chrome"],
+        ...devices['Desktop Chrome'],
         // Use prepared auth state.
         storageState: 'playwright/.auth/user.json',
       },
