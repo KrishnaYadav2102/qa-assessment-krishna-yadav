@@ -36,11 +36,42 @@ export class BasePage {
   }
 
   /**
+   * Check or Uncheck a given locator.
+   * @param locator The Playwright Locator to check/uncheck
+   * @param should_be_checked boolean value True if it needs to be checked else false
+   */
+  async check(locator: Locator, should_be_checked: boolean = true) {
+    Logger.info(
+      `Switch/Checkbox/Radio/Toggle on ${locator} should be checked: ${should_be_checked}`,
+    );
+
+    if (should_be_checked) {
+      await locator.check();
+    } else {
+      await locator.uncheck();
+    }
+  }
+
+  /**
+   * Click on a given locator.
+   * @param locator The Playwright Locator to click
+   */
+  async clear(locator: Locator) {
+    Logger.info(`Clearing input field: ${locator}`);
+    await locator.clear();
+  }
+
+  /**
    * Fill text into a given input locator.
    * @param locator The Playwright Locator of the input field
    * @param text The text to enter
    */
-  async fill(locator: Locator, text: string, is_password: boolean = false) {
+  async fill(
+    locator: Locator,
+    text: string,
+    is_password: boolean = false,
+    clear: boolean = true,
+  ) {
     const EXPOSE_COUNT = 3;
     let logText: string;
 
@@ -62,6 +93,9 @@ export class BasePage {
     }
 
     Logger.info(`Enter ${logText} into ${locator}`);
+    if (clear) {
+      await this.clear(locator);
+    }
     await locator.fill(text);
   }
 

@@ -21,19 +21,25 @@ export const USERS = {
 
 export const EXCHANGE_ACCOUNTS = {
   OKX: {
-    EXCHANGE: 'OKX',
+    NAME: 'OKX',
     KEY: process.env.OKX_KEY || '',
     SECRET: process.env.OKX_SECRET || '',
     PASSPHRASE: process.env.OKX_PASSPHRASE || '',
   },
+  OKX_1: {
+    NAME: 'OKX',
+    KEY: process.env.OKX_KEY_1 || '',
+    SECRET: process.env.OKX_SECRET_1 || '',
+    PASSPHRASE: process.env.OKX_PASSPHRASE_1 || '',
+  },
   BINANCE_USD_M: {
-    EXCHANGE: 'Binance USD-M',
-    KEY: process.env.BINANCE_USD_M_KEY || '',
-    SECRET: process.env.BINANCE_USD_M_SECRET || '',
+    NAME: 'Binance USDⓈ-M',
+    KEY: process.env.BINANCE_KEY || '',
+    SECRET: process.env.BINANCE_SECRET || '',
   },
   BINANCE_COIN_M: {
-    EXCHANGE: 'Binance COIN-M',
-    KEY: process.env.BINANCE_COIN_M_KEY || '',
-    SECRET: process.env.BINANCE_COIN_M_SECRET || '',
+    NAME: 'Binance COIN-M',
+    KEY: process.env.BINANCE_KEY || '',
+    SECRET: process.env.BINANCE_SECRET || '',
   },
 };

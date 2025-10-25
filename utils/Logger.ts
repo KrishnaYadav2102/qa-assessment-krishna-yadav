@@ -47,6 +47,6 @@ export class Logger {
   }
 
   public static step(stepName: string) {
-    logger.info(`>>>> STEP: ${stepName} <<<<`);
+    logger.info(`====> STEP: ${stepName} <====`);
   }
 }
