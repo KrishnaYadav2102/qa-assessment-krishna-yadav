@@ -1,19 +1,20 @@
 import { Page, Locator } from '@playwright/test';
-import { Logger } from '../utils/Logger.js';
+import { Logger } from '../utils/Logger.js'; // Import the custom logging utility
 
 /**
  * BasePage class provides common reusable methods for all page objects.
- * Handles navigation, element interactions, assertions, and loader waits.
+ * All specific Page Object Models (POMs) should extend this class.
  */
 export class BasePage {
   protected readonly page: Page;
-  // The Playwright Page object is shared across all methods
+  // The Playwright Page object is stored internally for use by all methods
   constructor(page: Page) {
     this.page = page;
   }
 
   /**
-   * Navigate to a given URL and wait for the loader to disappear.
+   * Navigate to a given URL and wait for the page to load.
+   * Note: This relies on the page load event, not a custom loader wait.
    * @param url The URL to navigate to
    */
   async goto(url: string) {
@@ -21,6 +22,10 @@ export class BasePage {
     await this.page.goto(url);
   }
 
+  /**
+   * Helper method to return a locator based on its text content.
+   * @param text The exact text content to search for
+   */
   async getElementByText(text: string) {
     Logger.info(`Returning element by text: ${text}`);
     return this.page.getByText(text);
@@ -28,6 +33,7 @@ export class BasePage {
 
   /**
    * Click on a given locator.
+   * This is a wrapper around the standard Playwright click() method.
    * @param locator The Playwright Locator to click
    */
   async click(locator: Locator) {
@@ -36,9 +42,9 @@ export class BasePage {
   }
 
   /**
-   * Check or Uncheck a given locator.
+   * Check or Uncheck a given locator (e.g., checkbox, radio button).
    * @param locator The Playwright Locator to check/uncheck
-   * @param should_be_checked boolean value True if it needs to be checked else false
+   * @param should_be_checked boolean value True if it needs to be checked else false (default is true)
    */
   async check(locator: Locator, should_be_checked: boolean = true) {
     Logger.info(
@@ -53,8 +59,8 @@ export class BasePage {
   }
 
   /**
-   * Click on a given locator.
-   * @param locator The Playwright Locator to click
+   * Clears the text from a given input locator.
+   * @param locator The Playwright Locator of the input field
    */
   async clear(locator: Locator) {
     Logger.info(`Clearing input field: ${locator}`);
@@ -62,9 +68,11 @@ export class BasePage {
   }
 
   /**
-   * Fill text into a given input locator.
+   * Fill text into a given input locator, with optional password masking in logs.
    * @param locator The Playwright Locator of the input field
    * @param text The text to enter
+   * @param is_password Flag to enable log masking for security (default: false)
+   * @param clear Flag to clear the field before filling (default: true)
    */
   async fill(
     locator: Locator,
@@ -72,7 +80,7 @@ export class BasePage {
     is_password: boolean = false,
     clear: boolean = true,
   ) {
-    const EXPOSE_COUNT = 3;
+    const EXPOSE_COUNT = 3; // Number of characters to expose for password logging
     let logText: string;
 
     if (is_password && text.length > EXPOSE_COUNT) {
@@ -85,7 +93,7 @@ export class BasePage {
       // 3. Create the mask string (e.g., "**********")
       const mask = '*'.repeat(maskLength);
 
-      // 4. Combine them
+      // 4. Combine them to show a partially masked password in logs
       logText = prefix + mask;
     } else {
       // If not a password, or if the text is too short, print the text as is (or use '******')
@@ -94,15 +102,15 @@ export class BasePage {
 
     Logger.info(`Enter ${logText} into ${locator}`);
     if (clear) {
-      await this.clear(locator);
+      await this.clear(locator); // Clear the field if requested
     }
-    await locator.fill(text);
+    await locator.fill(text); // Perform the fill action
   }
 
   /**
-   * Waits for a loader/spinner to appear and then disappear.
-   * If no loader appears within `appearTimeout`, it silently continues.
-   * @param loaderSelector CSS/XPath selector for loader element
+   * Waits for a custom application loader/spinner to appear and then disappear.
+   * This handles asynchronous data loading on the page.
+   * @param loaderSelector CSS/XPath selector for loader element (default: specific image)
    * @param appearTimeout Max time to wait for loader to appear (default: 2s)
    * @param disappearTimeout Max time to wait for loader to disappear (default: 10s)
    */
@@ -126,15 +134,12 @@ export class BasePage {
   }
 
   /**
-   * Waits for the specified locator to reach a desired state.
+   * Waits for the specified locator to reach a desired state ('visible' or 'hidden').
+   * This is a generic wrapper for Playwright's locator.waitFor().
    *
    * @param locator - The Playwright Locator to wait for
    * @param state - The state to wait for: 'visible' or 'hidden' (default: 'visible')
    * @param timeout - Maximum time to wait in milliseconds (default: 5000ms)
-   *
-   * Usage:
-   *   await waitForLocator(page.locator('#submitBtn'));           // Waits for visibility
-   *   await waitForLocator(page.locator('#loader'), 'hidden');   // Waits for loader to disappear
    */
   async waitForLocator(
     locator: Locator,
