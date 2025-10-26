@@ -82,6 +82,7 @@ export class AdminPage extends BasePage {
    * @param accountName The unique name of the account
    */
   async getDeleteBtnByAccount(accountName: string) {
+    Logger.info(`Returning delete button against account name: ${accountName}`);
     return this.page.getByTestId(`delete-account-${accountName.toLowerCase()}`);
   }
 
@@ -92,10 +93,13 @@ export class AdminPage extends BasePage {
    * @returns A Playwright Locator representing the table row
    */
   async getAccountRow(accountName: string) {
-    return this.page
-      .getByRole('row') // Find all rows in the table
-      // Filter the rows to find the one whose text content includes the account name (converted to lowercase for matching)
-      .filter({ hasText: `${accountName.toLowerCase()}` });
+    Logger.info(`Returning ${accountName} account name row`);
+    return (
+      this.page
+        .getByRole('row') // Find all rows in the table
+        // Filter the rows to find the one whose text content includes the account name (converted to lowercase for matching)
+        .filter({ hasText: `${accountName.toLowerCase()}` })
+    );
   }
 
   /**
@@ -105,6 +109,7 @@ export class AdminPage extends BasePage {
    * @returns A Playwright Locator for the 'Modify' button
    */
   async getModifyBtnByAccount(accountName: string) {
+    Logger.info(`Returning Modify button against ${accountName} account name`);
     // Use the helper method to get the specific account's row
     const accountRow = await this.getAccountRow(accountName);
     // Find the 'Modify' button restricted to that specific row
@@ -116,6 +121,7 @@ export class AdminPage extends BasePage {
    * @param exchangeName The name of the exchange to select
    */
   async selectAccount(exchangeName: string) {
+    Logger.step(`Selecting exchange: ${exchangeName}`);
     // If the exchange is OKX, assume it's the default and skip selection
     if (exchangeName == EXCHANGE_ACCOUNTS.OKX.NAME) return;
 
@@ -149,6 +155,9 @@ export class AdminPage extends BasePage {
     await this.fill(this.inpt_apiSecret, apiSecret, true); // Fill API secret (masked)
 
     if (passPhrase !== '') {
+      Logger.info(
+        'Passphrase is passed as argument. Hence entering value in passphrase',
+      );
       await this.fill(this.inpt_passPhrase, passPhrase, true); // Fill passphrase if provided (masked)
     }
     await this.check(this.swtch_testMode, true); // Ensure Test Mode is checked
@@ -185,6 +194,7 @@ export class AdminPage extends BasePage {
     const deleteAccountBtn = await this.getDeleteBtnByAccount(accountName); // Get the specific delete button
 
     if (await deleteAccountBtn.isVisible()) {
+      Logger.info(`${accountName} Account is visible. Hence deleting it now`);
       await this.click(deleteAccountBtn); // Click the delete button
       await this.fill(this.inpt_deleteConfirmation, 'DELETE'); // Fill the confirmation text
       await this.click(this.btn_delete); // Click the final delete button

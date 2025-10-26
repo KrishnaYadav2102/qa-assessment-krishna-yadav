@@ -54,3 +54,64 @@ export const EXCHANGE_ACCOUNTS = {
     // Note: No PASSPHRASE defined
   },
 };
+
+// Order Sides
+export const ORDER_SIDE = {
+  BUY: 'buy',
+  SELL: 'sell',
+} as const;
+
+// Order Strategies / Types
+export const ORDER_STRATEGY = {
+  MARKET: 'market',
+  LIMIT: 'limit',
+  LIMIT_EDGE: 'limit_edge',
+  MARKET_EDGE: 'market_edge',
+  TWAP: 'twap', // Time Weighted Average Price
+  VWAP: 'vwap', // Volume Weighted Average Price
+  TWAP_EDGE: 'twap_edge', // Time Weighted Average Price Edge
+  RATIO_TRADE: 'ratio_trade', // Ratio Trade
+  TARGET_POSITION: 'target_position', // Target Position
+} as const;
+
+// Order Time-in-Force
+export const ORDER_TIF = {
+  GTC: 'GTC', // Good Till Cancelled
+  IOC: 'IOC', // Immediate Or Cancel
+  FOK: 'FOK', // Fill Or Kill
+} as const;
+
+// Example Order Status
+export const ORDER_STATUS = {
+  NEW: 'new',
+  PENDING: 'pending',
+  FILLED: 'filled',
+  PARTIALLY_FILLED: 'partially_filled',
+  CANCELED: 'canceled',
+  REJECTED: 'rejected',
+} as const;
+
+export const SYMBOL = {
+  ETH_USDT: 'ETH-USDT',
+  BTC_USDT_SWAP: 'BTC-USDT-SWAP',
+} as const;
+
+export const DURATION_UNIT = {
+  SECONDS: 'Seconds',
+  MINUTES: 'Minutes',
+  HOURS: 'Hours',
+  DAYS: 'Days',
+  WEEKS: 'Weeks',
+  MONTHS: 'Months',
+} as const;
+
+export const ORDER_THRESHOLD_UNIT = {
+  PERCENTAGE: 'Percentage (%)',
+  DOLLAR_AMT: 'Dollar Amount ($)',
+} as const;
+
+export const VWAP_UNFILLED_ACTION = {
+  EXTEND: 'Extend',
+  INCREASE_PARTICIPATION: 'Increase Participation',
+  FAIL: 'Fail',
+} as const;

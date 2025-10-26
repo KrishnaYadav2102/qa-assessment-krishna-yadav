@@ -100,10 +100,10 @@ export class BasePage {
       logText = is_password ? '******' : text;
     }
 
-    Logger.info(`Enter ${logText} into ${locator}`);
     if (clear) {
       await this.clear(locator); // Clear the field if requested
     }
+    Logger.info(`Enter ${logText} into ${locator}`);
     await locator.fill(text); // Perform the fill action
   }
 

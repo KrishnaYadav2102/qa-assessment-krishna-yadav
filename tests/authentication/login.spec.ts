@@ -4,7 +4,7 @@ import { Asserts } from '../../utils/Asserts.js'; // Import custom assertion uti
 import { LoginPage } from '../../pages/authentication/LoginPage.js'; // Import Page Object Model for the Login page
 import { GoTradePage } from '../../pages/trading/GoTradePage.js'; // Import Page Object Model for the main trading page
 import { OnboardingPopup } from '../../pages/authentication/OnboardingPopup.js'; // Import Page Object for the Onboarding dialog
-import loginData from '../../test-data/login.json' with { type: "json" };
+import loginData from '../../test-data/login.json' with { type: 'json' };
 
 // Declare Page Object instance
 let loginPage: LoginPage;
