@@ -86,26 +86,30 @@ export class AdminPage extends BasePage {
   }
 
   /**
+   * Gets the Locator for the table row corresponding to a specific exchange account.
+   * This is a utility method used internally to scope searches for buttons (like Modify/Delete).
+   * @param accountName The unique name of the account to search for
+   * @returns A Playwright Locator representing the table row
+   */
+  async getAccountRow(accountName: string) {
+    return this.page
+      .getByRole('row') // Find all rows in the table
+      // Filter the rows to find the one whose text content includes the account name (converted to lowercase for matching)
+      .filter({ hasText: `${accountName.toLowerCase()}` });
+  }
+
+  /**
    * Gets the Locator for the modify button corresponding to a specific account name.
    * Finds the table row that contains the account name and then finds the 'Modify' button within that row.
    * @param accountName The unique name of the account
+   * @returns A Playwright Locator for the 'Modify' button
    */
   async getModifyBtnByAccount(accountName: string) {
-    return this.page
-      .getByRole('row')
-      .filter({ hasText: `${accountName.toLowerCase()}` })
-      .getByRole('button', { name: 'Modify' });
+    // Use the helper method to get the specific account's row
+    const accountRow = await this.getAccountRow(accountName);
+    // Find the 'Modify' button restricted to that specific row
+    return accountRow.getByRole('button', { name: 'Modify' });
   }
-
-  // async validateAccountsPage() {
-  //   console.log(`Printing it temporarily to avoid lint error: ${email}`);
-  //   // Example of commented out validation methods
-  //   // await Asserts.assertVisible(await this.getEmail(email));
-  //   // await Asserts.assertVisible(this.link_go_terminal);
-  //   // await Asserts.assertVisible(this.btn_markets);
-  //   // await Asserts.assertVisible(this.btn_trading);
-  //   // await Asserts.assertVisible(this.btn_accounts);
-  // }
 
   /**
    * Selects the target exchange in the 'Add Account' dialog if it's not the default (OKX).
