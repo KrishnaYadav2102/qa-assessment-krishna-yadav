@@ -1,0 +1,38 @@
+[
+  {
+    "test_name": "User login for existing user with incorrect password",
+    "username": "user19@goquant.io",
+    "password": "wrong_password",
+    "message": "The password is invalid"
+  },
+  {
+    "test_name": "User login for non-existing user",
+    "username": "non-existing-user@goquant.io",
+    "password": "password",
+    "message": "The user was not found in the system"
+  },
+  {
+    "test_name": "User login with Invalid Email format",
+    "username": "invalid-email-format",
+    "password": "password",
+    "message": "Please provide a valid email"
+  },
+  {
+    "test_name": "User login with blank Email",
+    "username": "",
+    "password": "password",
+    "message": "Username must be at least 5 characters."
+  },
+  {
+    "test_name": "User login with less than 5 characters Email",
+    "username": "@b.c",
+    "password": "password",
+    "message": "Username must be at least 5 characters."
+  },
+  {
+    "test_name": "User login with blank password",
+    "username": "user19@goquant.io",
+    "password": "",
+    "message": "The password is invalid"
+  }
+]
