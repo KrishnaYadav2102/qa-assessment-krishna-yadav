@@ -1,14 +1,14 @@
 import { test } from '@playwright/test';
+import { GoTradePage } from '../../../pages/trading/GoTradePage.js';
 import {
   DURATION_UNIT,
   ORDER_SIDE,
   ORDER_STRATEGY,
-  SYMBOL,
   ORDER_THRESHOLD_UNIT,
+  SYMBOL,
   USERS,
   VWAP_UNFILLED_ACTION,
-} from '../../utils/constants.js';
-import { GoTradePage } from '../../pages/trading/GoTradePage.js';
+} from '../../../utils/constants.js';
 import {
   LimitEdgeOrder,
   LimitOrder,
@@ -17,40 +17,23 @@ import {
   TWAPEdgeOrder,
   TWAPOrder,
   VWAPOrder,
-} from '../../types/order.js';
-import { Asserts } from '../../utils/Asserts.js';
+} from '../../../types/order.js';
+import { Asserts } from '../../../utils/Asserts.js';
 
 let goTradePage: GoTradePage;
 
-test.describe('GoTrade > UI validations: ', async () => {
+test.describe('GoTrade > Swap > Strategies: ', async () => {
   test.beforeEach(async ({ page }) => {
     goTradePage = new GoTradePage(page, USERS.USER19.username); // Initialize the GoTrade Page Object
     await goTradePage.goto(); // Navigate to the GoTrade page
   });
 
-  test.afterEach(async () => {});
-
-  test('Metrics Validations', async () => {});
-
-  test('Trade Validations', async () => {});
-
-  test('Order book Validations', async () => {});
-
-  test('Last Trade Validations', async () => {});
-});
-
-test.describe('GoTrade > Spot', async () => {
-  test.beforeEach(async ({ page }) => {
-    goTradePage = new GoTradePage(page, USERS.USER19.username); // Initialize the GoTrade Page Object
-    await goTradePage.goto(); // Navigate to the GoTrade page
-  });
-
-  test('Market Edge Order', async () => {
+  test('Market Edge Order: Sell', async () => {
     const order: MarketEdgeOrder = {
       strategy: ORDER_STRATEGY.MARKET_EDGE,
-      symbol: SYMBOL.ETH_USDT,
+      symbol: SYMBOL.BTC_USDT_SWAP,
       quantity: 0.01,
-      side: ORDER_SIDE.BUY,
+      side: ORDER_SIDE.SELL,
       duration: 10,
       durationUnit: DURATION_UNIT.SECONDS,
       decayFactor: 1,
@@ -61,13 +44,13 @@ test.describe('GoTrade > Spot', async () => {
     );
   });
 
-  test('Limit Edge Order', async () => {
+  test('Limit Edge Order: Sell', async () => {
     const order: LimitEdgeOrder = {
       strategy: ORDER_STRATEGY.LIMIT_EDGE,
-      symbol: SYMBOL.ETH_USDT,
+      symbol: SYMBOL.BTC_USDT_SWAP,
       quantity: 0.01,
       price: 10000,
-      side: ORDER_SIDE.BUY,
+      side: ORDER_SIDE.SELL,
       duration: 10,
       durationUnit: DURATION_UNIT.SECONDS,
       threshold: 2,
@@ -79,10 +62,10 @@ test.describe('GoTrade > Spot', async () => {
     );
   });
 
-  test('TWAP Edge Order', async () => {
+  test('TWAP Edge Order: Buy', async () => {
     const order: TWAPEdgeOrder = {
       strategy: ORDER_STRATEGY.TWAP_EDGE,
-      symbol: SYMBOL.ETH_USDT,
+      symbol: SYMBOL.BTC_USDT_SWAP,
       quantity: 0.01,
       side: ORDER_SIDE.BUY,
       duration: 10,
@@ -96,10 +79,10 @@ test.describe('GoTrade > Spot', async () => {
     );
   });
 
-  test('Limit Order', async () => {
+  test('Limit Order: Buy', async () => {
     const order: LimitOrder = {
       strategy: ORDER_STRATEGY.LIMIT,
-      symbol: SYMBOL.ETH_USDT,
+      symbol: SYMBOL.BTC_USDT_SWAP,
       quantity: 0.01,
       side: ORDER_SIDE.BUY,
       price: 10000,
@@ -110,10 +93,10 @@ test.describe('GoTrade > Spot', async () => {
     );
   });
 
-  test('Market Order', async () => {
+  test('Market Order: Buy', async () => {
     const order: MarketOrder = {
       strategy: ORDER_STRATEGY.MARKET,
-      symbol: SYMBOL.ETH_USDT,
+      symbol: SYMBOL.BTC_USDT_SWAP,
       quantity: 0.01,
       side: ORDER_SIDE.BUY,
     };
@@ -123,10 +106,10 @@ test.describe('GoTrade > Spot', async () => {
     );
   });
 
-  test('TWAP Order', async () => {
+  test('TWAP Order: Buy', async () => {
     const order: TWAPOrder = {
       strategy: ORDER_STRATEGY.TWAP,
-      symbol: SYMBOL.ETH_USDT,
+      symbol: SYMBOL.BTC_USDT_SWAP,
       quantity: 0.01,
       side: ORDER_SIDE.BUY,
       duration: 10,
@@ -139,10 +122,10 @@ test.describe('GoTrade > Spot', async () => {
     );
   });
 
-  test('VWAP Order', async () => {
+  test('VWAP Order: Buy', async () => {
     const order: VWAPOrder = {
       strategy: ORDER_STRATEGY.VWAP,
-      symbol: SYMBOL.ETH_USDT,
+      symbol: SYMBOL.BTC_USDT_SWAP,
       quantity: 0.01,
       side: ORDER_SIDE.BUY,
       duration: 10,

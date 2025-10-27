@@ -5,6 +5,7 @@ import {
   SYMBOL,
   ORDER_THRESHOLD_UNIT,
   VWAP_UNFILLED_ACTION,
+  ORDER_TIF,
 } from '../utils/constants.js';
 
 type BaseOrder = {
@@ -40,6 +41,7 @@ export type TWAPEdgeOrder = BaseOrder & {
 export type LimitOrder = BaseOrder & {
   strategy: typeof ORDER_STRATEGY.LIMIT;
   price: number;
+  tif?: (typeof ORDER_TIF)[keyof typeof ORDER_TIF];
 };
 
 export type MarketOrder = BaseOrder & {
@@ -62,10 +64,12 @@ export type VWAPOrder = BaseOrder & {
 };
 
 type RatioTradeOrder = BaseOrder & {
+  // TODO: Need to update this
   strategy: typeof ORDER_STRATEGY.RATIO_TRADE;
 };
 
 type TargetPositionOrder = BaseOrder & {
+  // TODO: Need to update this
   strategy: typeof ORDER_STRATEGY.TARGET_POSITION;
 };
 

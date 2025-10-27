@@ -38,7 +38,9 @@ export class GoTradePage extends BasePage {
   // Locator for the sign-out option within the profile dropdown menu
   menu_item_logout = this.page.getByRole('menuitem', { name: 'Sign out' });
 
-  // Trade panel locators
+  /*
+   * Trade panel locators
+   */
   btn_marketEdge = this.page.getByTestId('GOTRADE_ORDERTYPE_MARKET_EDGE');
   btn_limitEdge = this.page.getByTestId('GOTRADE_ORDERTYPE_LIMIT_EDGE');
   btn_twapEdge = this.page.getByTestId('GOTRADE_ORDERTYPE_TWAP_EDGE');
@@ -66,9 +68,23 @@ export class GoTradePage extends BasePage {
     name: 'Max Participation Rate',
   });
 
+  chk_advanced = this.page.getByText('Advanced');
+  cmbbx_advanced = this.page.getByRole('combobox', { name: 'Time In Force' });
+
   btn_long = this.page.getByTestId('long-button');
   btn_short = this.page.getByTestId('short-button');
   btn_trade = this.page.getByTestId('trade-button');
+
+  /*
+   * Order Management section
+   */
+  btn_workingOrders = this.page.getByRole('button', {
+    name: 'Working Orders',
+    exact: true,
+  });
+  btn_orderHistory = this.page.getByRole('button', { name: 'Order History' });
+  btn_openPositions = this.page.getByRole('button', { name: 'Open Positions' });
+  btn_assets = this.page.getByRole('button', { name: 'Assets' });
 
   /**
    * Constructor initializes the GoTradePage object
@@ -144,6 +160,10 @@ export class GoTradePage extends BasePage {
     );
   }
 
+  async getOrderTIFOption(timeInForce: string) {
+    Logger.info(`Returning Time In Force Option: ${timeInForce}`);
+    return this.page.getByRole('option', { name: timeInForce });
+  }
   async selectStrategy(strategy: string) {
     Logger.step(`Selecting Order Strategy: ${strategy}`);
 
@@ -184,13 +204,19 @@ export class GoTradePage extends BasePage {
 
   async selectDuration(duration: number, unit: string) {
     Logger.step(`Enter duration: ${duration} ${unit}`);
-    await this.fill(this.inpt_duration, duration.toString());
+
+    if (duration >= 0) {
+      await this.fill(this.inpt_duration, duration.toString());
+    }
     //   TODO: Need to implement unit selection
   }
 
   async selectThreshold(threshold: number, unit: string) {
     Logger.step(`Enter threshold: ${threshold} ${unit}`);
-    await this.fill(this.inpt_threshold, threshold.toString());
+
+    if (threshold >= 0) {
+      await this.fill(this.inpt_threshold, threshold.toString());
+    }
     //   TODO: Need to implement unit selection
   }
 
@@ -222,6 +248,13 @@ export class GoTradePage extends BasePage {
     await this.click(await this.getSymbolOption(symbolUppercase));
   }
 
+  async selectOrderTIF(tif: string) {
+    Logger.info(`Selecting Order TIF: ${tif}`);
+
+    await this.check(this.chk_advanced);
+    await this.click(this.cmbbx_advanced);
+    await this.click(await this.getOrderTIFOption(tif));
+  }
   async placeOrder(order: Order) {
     Logger.step(`Placing Order: ${JSON.stringify(order)}`);
 
@@ -267,9 +300,15 @@ export class GoTradePage extends BasePage {
   async placeOrderMarketEdge(order: MarketEdgeOrder) {
     await this.selectStrategy(order.strategy);
     await this.searchSelectSymbol(order.symbol);
-    await this.fill(this.inpt_quantity, order.quantity.toString());
+
+    if (order.quantity >= 0) {
+      await this.fill(this.inpt_quantity, order.quantity.toString());
+    }
     await this.selectDuration(order.duration, order.durationUnit);
-    await this.fill(this.inpt_decayFactor, order.decayFactor.toString());
+
+    if (order.decayFactor >= 0) {
+      await this.fill(this.inpt_decayFactor, order.decayFactor.toString());
+    }
   }
 
   async placeOrderLimitEdge(order: LimitEdgeOrder) {
@@ -278,7 +317,10 @@ export class GoTradePage extends BasePage {
 
     await this.selectStrategy(order.strategy);
     await this.searchSelectSymbol(order.symbol);
-    await this.fill(this.inpt_quantity, order.quantity.toString());
+
+    if (order.quantity >= 0) {
+      await this.fill(this.inpt_quantity, order.quantity.toString());
+    }
     await this.selectDuration(order.duration, order.durationUnit);
 
     if (order.price) {
@@ -292,42 +334,71 @@ export class GoTradePage extends BasePage {
   async placeOrderTWAPEdge(order: TWAPEdgeOrder) {
     await this.selectStrategy(order.strategy);
     await this.searchSelectSymbol(order.symbol);
-    await this.fill(this.inpt_quantity, order.quantity.toString());
+
+    if (order.quantity >= 0) {
+      await this.fill(this.inpt_quantity, order.quantity.toString());
+    }
     await this.selectDuration(order.duration, order.durationUnit);
-    await this.fill(this.inpt_interval, order.interval.toString());
-    await this.fill(this.inpt_decayFactor, order.decayFactor.toString());
+
+    if (order.interval >= 0) {
+      await this.fill(this.inpt_interval, order.interval.toString());
+    }
+    if (order.decayFactor >= 0) {
+      await this.fill(this.inpt_decayFactor, order.decayFactor.toString());
+    }
   }
 
   async placeOrderLimit(order: LimitOrder) {
     await this.selectStrategy(order.strategy);
     await this.searchSelectSymbol(order.symbol);
-    await this.fill(this.inpt_quantity, order.quantity.toString());
+
+    if (order.quantity >= 0) {
+      await this.fill(this.inpt_quantity, order.quantity.toString());
+    }
     await this.fill(this.inpt_price, order.price.toString());
+
+    if (order.tif) {
+      await this.selectOrderTIF(order.tif);
+    }
   }
 
   async placeOrderMarket(order: MarketOrder) {
     await this.selectStrategy(order.strategy);
     await this.searchSelectSymbol(order.symbol);
-    await this.fill(this.inpt_quantity, order.quantity.toString());
+    if (order.quantity >= 0) {
+      await this.fill(this.inpt_quantity, order.quantity.toString());
+    }
   }
 
   async placeOrderTWAP(order: TWAPOrder) {
     await this.selectStrategy(order.strategy);
     await this.searchSelectSymbol(order.symbol);
-    await this.fill(this.inpt_quantity, order.quantity.toString());
+    if (order.quantity >= 0) {
+      await this.fill(this.inpt_quantity, order.quantity.toString());
+    }
     await this.selectDuration(order.duration, order.durationUnit);
-    await this.fill(this.inpt_interval, order.interval.toString());
+
+    if (order.interval >= 0) {
+      await this.fill(this.inpt_interval, order.interval.toString());
+    }
   }
 
   async placeOrderVWAP(order: VWAPOrder) {
     await this.selectStrategy(order.strategy);
     await this.searchSelectSymbol(order.symbol);
-    await this.fill(this.inpt_quantity, order.quantity.toString());
+    if (order.quantity >= 0) {
+      await this.fill(this.inpt_quantity, order.quantity.toString());
+    }
+
     await this.selectDuration(order.duration, order.durationUnit);
-    await this.fill(
-      this.inpt_maxParticipationRate,
-      order.maxParticipationRate.toString(),
-    );
+
+    if (order.maxParticipationRate >= 0) {
+      await this.fill(
+        this.inpt_maxParticipationRate,
+        order.maxParticipationRate.toString(),
+      );
+    }
+
     await this.selectActionForUnfilledQuantities(
       order.actionForUnfilledQuantities,
     );

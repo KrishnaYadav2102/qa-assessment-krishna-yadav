@@ -76,9 +76,11 @@ export const ORDER_STRATEGY = {
 
 // Order Time-in-Force
 export const ORDER_TIF = {
-  GTC: 'GTC', // Good Till Cancelled
-  IOC: 'IOC', // Immediate Or Cancel
-  FOK: 'FOK', // Fill Or Kill
+  GTC: 'Good Till Cancel',
+  GTT: 'Good Till Time',
+  IOC: 'Immediate or Cancel',
+  FOK: 'Fill or Kill',
+  DAY: 'Day',
 } as const;
 
 // Example Order Status
@@ -93,7 +95,9 @@ export const ORDER_STATUS = {
 
 export const SYMBOL = {
   ETH_USDT: 'ETH-USDT',
+  BTC_USDT: 'BTC-USDT',
   BTC_USDT_SWAP: 'BTC-USDT-SWAP',
+  BTC_USDT_260626: 'BTC-USDT-260626',
 } as const;
 
 export const DURATION_UNIT = {
