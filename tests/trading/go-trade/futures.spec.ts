@@ -22,12 +22,23 @@ import { Asserts } from '../../../utils/Asserts.js';
 
 let goTradePage: GoTradePage;
 
+//
+// ✅ Test Suite: GoTrade > Futures > Strategies
+// This suite verifies multiple order strategies (Market, Limit, TWAP, VWAP, etc.)
+// under the Futures module using different configurations.
+//
 test.describe('GoTrade > Futures > Strategies: ', async () => {
+
+  // Runs before each test — sets up page object and navigates to GoTrade page
   test.beforeEach(async ({ page }) => {
-    goTradePage = new GoTradePage(page, USERS.USER19.username); // Initialize the GoTrade Page Object
-    await goTradePage.goto(); // Navigate to the GoTrade page
+    goTradePage = new GoTradePage(page, USERS.USER19.username); // Initialize GoTrade Page Object with user
+    await goTradePage.goto(); // Navigate to the GoTrade page before each test
   });
 
+  //
+  // 🧾 Test Case 1: Market Edge Order - SELL
+  // Places a Market Edge order with SELL side and verifies the "Order Accepted" confirmation
+  //
   test('Market Edge Order: Sell', async () => {
     const order: MarketEdgeOrder = {
       strategy: ORDER_STRATEGY.MARKET_EDGE,
@@ -38,12 +49,15 @@ test.describe('GoTrade > Futures > Strategies: ', async () => {
       durationUnit: DURATION_UNIT.SECONDS,
       decayFactor: 1,
     };
-    await goTradePage.placeOrder(order);
-    await Asserts.assertVisible(
-      await goTradePage.getElementByText('Order Accepted'),
-    );
+
+    await goTradePage.placeOrder(order); // Execute order placement
+    await Asserts.assertVisible(await goTradePage.getElementByText('Order Accepted')); // Verify success message
   });
 
+  //
+  // 🧾 Test Case 2: Limit Edge Order - SELL
+  // Places a Limit Edge order with threshold parameters and verifies successful order placement
+  //
   test('Limit Edge Order: Sell', async () => {
     const order: LimitEdgeOrder = {
       strategy: ORDER_STRATEGY.LIMIT_EDGE,
@@ -56,12 +70,15 @@ test.describe('GoTrade > Futures > Strategies: ', async () => {
       threshold: 2,
       thresholdUnit: ORDER_THRESHOLD_UNIT.PERCENTAGE,
     };
+
     await goTradePage.placeOrder(order);
-    await Asserts.assertVisible(
-      await goTradePage.getElementByText('Order Accepted'),
-    );
+    await Asserts.assertVisible(await goTradePage.getElementByText('Order Accepted'));
   });
 
+  //
+  // 🧾 Test Case 3: TWAP Edge Order - BUY
+  // Tests a TWAP (Time-Weighted Average Price) order using edge parameters (interval, decayFactor)
+  //
   test('TWAP Edge Order: Buy', async () => {
     const order: TWAPEdgeOrder = {
       strategy: ORDER_STRATEGY.TWAP_EDGE,
@@ -73,12 +90,15 @@ test.describe('GoTrade > Futures > Strategies: ', async () => {
       interval: 2,
       decayFactor: 1,
     };
+
     await goTradePage.placeOrder(order);
-    await Asserts.assertVisible(
-      await goTradePage.getElementByText('Order Accepted'),
-    );
+    await Asserts.assertVisible(await goTradePage.getElementByText('Order Accepted'));
   });
 
+  //
+  // 🧾 Test Case 4: Limit Order - BUY
+  // Basic limit order placement with static price and BUY direction
+  //
   test('Limit Order: Buy', async () => {
     const order: LimitOrder = {
       strategy: ORDER_STRATEGY.LIMIT,
@@ -87,12 +107,15 @@ test.describe('GoTrade > Futures > Strategies: ', async () => {
       side: ORDER_SIDE.BUY,
       price: 10000,
     };
+
     await goTradePage.placeOrder(order);
-    await Asserts.assertVisible(
-      await goTradePage.getElementByText('Order Accepted'),
-    );
+    await Asserts.assertVisible(await goTradePage.getElementByText('Order Accepted'));
   });
 
+  //
+  // 🧾 Test Case 5: Market Order - BUY
+  // Verifies Market order placement and success message
+  //
   test('Market Order: Buy', async () => {
     const order: MarketOrder = {
       strategy: ORDER_STRATEGY.MARKET,
@@ -100,12 +123,15 @@ test.describe('GoTrade > Futures > Strategies: ', async () => {
       quantity: 0.01,
       side: ORDER_SIDE.BUY,
     };
+
     await goTradePage.placeOrder(order);
-    await Asserts.assertVisible(
-      await goTradePage.getElementByText('Order Accepted'),
-    );
+    await Asserts.assertVisible(await goTradePage.getElementByText('Order Accepted'));
   });
 
+  //
+  // 🧾 Test Case 6: TWAP Order - BUY
+  // Tests standard TWAP strategy order with duration and interval configuration
+  //
   test('TWAP Order: Buy', async () => {
     const order: TWAPOrder = {
       strategy: ORDER_STRATEGY.TWAP,
@@ -116,12 +142,15 @@ test.describe('GoTrade > Futures > Strategies: ', async () => {
       durationUnit: DURATION_UNIT.SECONDS,
       interval: 2,
     };
+
     await goTradePage.placeOrder(order);
-    await Asserts.assertVisible(
-      await goTradePage.getElementByText('Order Accepted'),
-    );
+    await Asserts.assertVisible(await goTradePage.getElementByText('Order Accepted'));
   });
 
+  //
+  // 🧾 Test Case 7: VWAP Order - BUY
+  // Tests Volume-Weighted Average Price (VWAP) order with participation and unfilled action config
+  //
   test('VWAP Order: Buy', async () => {
     const order: VWAPOrder = {
       strategy: ORDER_STRATEGY.VWAP,
@@ -133,9 +162,8 @@ test.describe('GoTrade > Futures > Strategies: ', async () => {
       maxParticipationRate: 2,
       actionForUnfilledQuantities: VWAP_UNFILLED_ACTION.EXTEND,
     };
+
     await goTradePage.placeOrder(order);
-    await Asserts.assertVisible(
-      await goTradePage.getElementByText('Order Accepted'),
-    );
+    await Asserts.assertVisible(await goTradePage.getElementByText('Order Accepted'));
   });
 });
