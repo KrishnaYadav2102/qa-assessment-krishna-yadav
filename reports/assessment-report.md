@@ -171,7 +171,7 @@ A total of **x test cases** were designed to ensure adequate coverage across fun
 | **Absence of Test IDs for Locators** | Many UI elements lacked dedicated `data-testid` attributes, making element identification difficult and fragile. | Referred to Playwright documentation for best locator strategies, utilized **Playwright Codegen** to capture stable selectors, and leveraged **AI tools (ChatGPT & Gemini)** for improving locator logic and best practices. |
 | **Testing a Large Application Within Tight Timelines** | GoQuant is a feature-rich platform, making it challenging to test comprehensively under limited timelines. | Defined the **scope of testing and automation** early, applied a **risk-based testing strategy**, and prioritized high-impact modules to ensure maximum coverage within the available time. |
 | **Responsive and Multi-Viewport Testing** | Verifying UI and UX consistency across multiple devices and screen sizes required significant effort. | Used **Responsively App** and browser developer tools to efficiently validate the application across desktop, tablet, and mobile viewports. Identified layout breaks early. |
-
+| **Test Timing Out Due to Slow Application Response** | During automation runs, certain test cases failed intermittently due to delayed UI updates and slow API responses from the backend. | Increased the **test timeout** to 120 seconds and **expect timeout** to 20 seconds in Playwright configuration, providing sufficient buffer for slow responses while maintaining test reliability. |
 ---
 
 ## Detailed Findings
