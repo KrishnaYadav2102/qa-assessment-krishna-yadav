@@ -37,7 +37,7 @@ The testing process covered a wide range of areas to ensure platform stability, 
 
 ### Key Findings and Recommendations
 
-Testing identified **21 significant issues**, including **5 critical**, **10 high**, **5 medium**, and **1 low-priority** defects.
+Testing identified **x significant issues**, including **y critical**, **z high**, **x medium**, and **x low-priority** defects.
 
 **Key Findings**
 - The application becomes **slow and occasionally unresponsive** when multiple accounts are added or when opened for longer duration.
