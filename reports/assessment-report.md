@@ -155,6 +155,12 @@ A total of **x test cases** were designed to ensure adequate coverage across fun
    These tools were instrumental in drafting well-structured Markdown documentation, summarizing complex logic for easier understanding, and ensuring consistent commenting standards across the codebase.  
    By leveraging AI for routine documentation and code annotation tasks, overall productivity increased while maintaining clarity and traceability in both test scripts and project reports.
 
+8. **Winston Logger:**  
+   Winston **logging utility** was implemented to enhance log readability, traceability, and debugging efficiency during automated test executions.  
+   Structured log messages were configured to capture test execution info, step-level execution details, and error traces in a human-readable format.  
+   The logger provided clear context for each test run, making it easier to identify root causes of failures without sifting through verbose console outputs.  
+   This improved overall debugging speed, streamlined test triage during CI runs, and provided a transparent execution history for test reporting and analysis.
+
 ---
 
 ## Challenges Encountered and Solutions Implemented
