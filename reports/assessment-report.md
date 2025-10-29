@@ -368,3 +368,23 @@ Delivered the most stable and consistent experience, with minimal layout or rend
 Showed the most significant visual inconsistencies, Overlapping and misaligned components. There were UI inconsistencies in tablet and mobile viewports as well.
 
 ---
+
+### Test Executions
+
+All automated test suites were executed through the **CI/CD pipeline integrated with GitHub Actions**, ensuring consistent and repeatable test runs across environments.  
+The CI workflow triggered test execution on each new commit and pull request, providing early feedback on build stability and functional regressions.
+
+Test execution covered all major browsers — **Chromium, Firefox, and WebKit** — and ran in parallel to optimize runtime efficiency. Detailed Playwright HTML reports were generated after each pipeline run, offering visibility into individual test outcomes, screenshots, and failure traces.
+
+A total of **80 test cases** were executed per browser (overall 240 test cases) as part of this testing cycle. While most functional flows passes when run 1-by-1 locally, a few failures were observed due to **test timeouts**.  
+These timeouts were primarily caused by the **application’s degraded performance** under load and slow API response times, rather than script instability or locator issues.
+
+To ensure stability, test-level and expectation timeouts were temporarily increased (`test timeout: 120s`, `expect timeout: 20s`).  
+Despite these adjustments, intermittent slowness persisted, confirming that the failures were linked to backend and UI latency during extended sessions.
+
+Continuous monitoring of test trends within the CI pipeline helped identify these performance-related bottlenecks early, enabling more targeted follow-up investigations by the development team.
+
+HTML report can be downloaded from the following link:
+https://github.com/KrishnaYadav2102/qa-assessment-krishna-yadav/actions
+
+---
