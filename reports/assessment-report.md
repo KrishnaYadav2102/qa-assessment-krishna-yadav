@@ -37,7 +37,7 @@ The testing process covered a wide range of areas to ensure platform stability, 
 
 ### Key Findings and Recommendations
 
-Testing identified **x significant issues**, including **y critical**, **z high**, **x medium**, and **x low-priority** defects.
+Testing identified **7 significant issues**, including **3 critical**, **1 high**, **3 medium** defects.
 
 **Key Findings**
 ### Key Findings
