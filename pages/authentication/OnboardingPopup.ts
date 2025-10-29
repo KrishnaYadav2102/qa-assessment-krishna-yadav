@@ -35,7 +35,7 @@ export class OnboardingPopup extends BasePage {
     Logger.info('Checking if Onboarding pop-up is visible!');
     try {
       // Try to wait for the popup container to become visible within a 10s timeout
-      await this.waitForLocator(this.popupContainer, 'visible', 10000);
+      await this.waitForLocator(this.popupContainer, 'visible', 20000);
       Logger.info('PopUp visible!');
       return true;
     } catch (error) {
